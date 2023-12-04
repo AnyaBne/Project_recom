@@ -11,16 +11,16 @@ def load_model(url):
     # Télécharger le fichier compressé
     response = requests.get(url, stream=True)
     if response.status_code == 200:
-        with open("recommender_model.pkl.gz", "wb") as f:
+        with open("model_recom.pkl.gz", "wb") as f:
             f.write(response.raw.read())
 
     # Décompresser le fichier
-    with gzip.open("recommender_model.pkl.gz", "rb") as f_in:
-        with open("recommender_model.pkl", "wb") as f_out:
+    with gzip.open("model_recom.pkl.gz", "rb") as f_in:
+        with open("model_recom.pkl", "wb") as f_out:
             shutil.copyfileobj(f_in, f_out)
 
     # Charger le modèle
-    return joblib.load("recommender_model.pkl")
+    return joblib.load("model_recom.pkl")
 
 # URL du fichier modèle compressé sur GitHub
 model_url = "model_recom.pkl.gz"
