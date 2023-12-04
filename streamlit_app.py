@@ -23,7 +23,7 @@ def load_model(url):
     return joblib.load("model_recom.pkl")
 
 # URL du fichier modèle compressé sur GitHub
-model_url = "model_recom.pkl.gz"
+model_url = "https://github.com/AnyaBne/Project_recom/blob/main/model_recom.pkl.gz"
 model = load_model(model_url)
 
 # Charger le dataset
