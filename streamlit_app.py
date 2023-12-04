@@ -1,30 +1,23 @@
 import streamlit as st
 import pandas as pd
-import requests
 import gzip
 import shutil
 import joblib
 
-# Fonction pour télécharger, décompresser et charger le modèle
+# Fonction pour décompresser et charger le modèle
 @st.cache(allow_output_mutation=True)
-def load_model(url):
-    # Télécharger le fichier compressé
-    response = requests.get(url, stream=True)
-    if response.status_code == 200:
-        with open("model_recom.pkl.gz", "wb") as f:
-            f.write(response.raw.read())
-
+def load_model(file_name):
     # Décompresser le fichier
-    with gzip.open("model_recom.pkl.gz", "rb") as f_in:
-        with open("model_recom.pkl", "wb") as f_out:
+    with gzip.open(file_name, 'rb') as f_in:
+        with open('model_recom.pkl', 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
 
     # Charger le modèle
-    return joblib.load("model_recom.pkl")
+    return joblib.load('model_recom.pkl')
 
-# URL du fichier modèle compressé sur GitHub
-model_url = "https://github.com/AnyaBne/Project_recom/blob/main/model_recom.pkl.gz"
-model = load_model(model_url)
+# Chemin du fichier modèle compressé
+model_file_name = 'model_recom.pkl.gz'
+model = load_model(model_file_name)
 
 # Charger le dataset
 data = pd.read_csv('song_dataset.csv')
