@@ -4,3 +4,4 @@ requests
 joblib
 numpy
 scikit-learn
+scikit-surprise
